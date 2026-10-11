@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Blog Green{% endblock %}</title>
+    <style>
+        :root {
+            --green-primary: #2f9e44;
+            --green-dark: #1e6b32;
+            --green-light: #e6f6ea;
+            --text-color: #1f2937;
+            --muted-text: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f7fb;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--green-dark);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .brand svg {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        nav.nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav.nav-links a {
+            text-decoration: none;
+            color: var(--muted-text);
+            font-weight: 500;
+            padding: 0.4rem 0.2rem;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        nav.nav-links a:hover,
+        nav.nav-links a.active {
+            color: var(--green-dark);
+            border-color: var(--green-primary);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            max-width: 640px;
+            text-align: center;
+        }
+
+        .card h1 {
+            margin-top: 0;
+            color: var(--green-dark);
+        }
+
+        .card p {
+            color: var(--muted-text);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.25rem;
+            color: var(--muted-text);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .navbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav.nav-links {
+                gap: 1rem;
+            }
+
+            .card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="{% url 'home' %}" aria-label="Ir para a Home do Blog Green">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 2C9 7 4 9 4 14a8 8 0 0 0 16 0c0-5-5-7-8-12z" fill="#2f9e44"/>
+                    <path d="M12 7c-1.8 2.3-4 3.4-4 7a4 4 0 0 0 8 0c0-3.6-2.2-4.7-4-7z" fill="#1e6b32"/>
+                </svg>
+                Blog Green
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'posts' %}" class="{% if request.resolver_match.url_name == 'posts' %}active{% endif %}">Posts</a>
+                <a href="{% url 'sobre' %}" class="{% if request.resolver_match.url_name == 'sobre' %}active{% endif %}">Sobre Nós</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        &copy; {% now "Y" %} Blog Green. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
